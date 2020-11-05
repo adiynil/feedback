@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{lang}}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,21 +9,24 @@
 </head>
 
 <body>
-    <h2>{{head_title}}</h2>
-    <form action="/" method="post">
-        <p>
-            <input name="name" id="name" type="text" placeholder="{{name_placeholder}}" />
-        </p>
-        <p>
-            <textarea name="content" id="content" cols="30" rows="10" placeholder="{{content_placeholder}}"></textarea>
-        </p>
-        <p>
-            <button type="submit">{{btn_text}}</button>
-        </p>
-        <!-- <p>
-            <span>Total: 59</span>
-        </p> -->
-    </form>
+    <div class="container">
+        <h2>{{head_title}}</h2>
+        <form action="/" method="post">
+            <p>
+                <input name="name" id="name" type="text" placeholder="{{name_placeholder}}" />
+            </p>
+            <p>
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="{{content_placeholder}}"></textarea>
+            </p>
+            <p>
+                <button type="submit">{{btn_text}}</button>
+            </p>
+            <p>
+                <span>Total: {{data.total?data.total:"submit one to init"}}</span>
+            </p>
+        </form>
+
+    </div>
 </body>
 
 </html>

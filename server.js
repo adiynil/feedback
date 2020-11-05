@@ -23,6 +23,7 @@ http.createServer(async (req, res) => {
     })
     return
   }
+  if (url != "/") return res.end("404 Not Fund")
   // 监听post请求
   var postQurey = "";
   req.on("data", (chunk) => {
@@ -33,10 +34,10 @@ http.createServer(async (req, res) => {
     // 判断是否有请求，有的话就写入log.json文件
     if(postQurey) utils.log(`received post request ${postQurey.toString()} from ${url}`)
     postQurey = querystring.parse(postQurey.toString());
-    if (url == "/" && postQurey.name && postQurey.content) {
-      fs.readFile(path.join(__dirname, "./data.json"), {flsg: "a+"}, (err, data) => {
+    if (postQurey.name && postQurey.content) {
+      fs.readFile(path.join(__dirname, "./data.json"), {flag: "a+"}, (err, data) => {
         if (err) return utils.log("read data.json error")
-        dataObj = data
+        dataObj = data.toString()
         dataObj = JSON.parse(dataObj ? dataObj : "{}");
         dataObj.total ? (dataObj.total += 1) : (dataObj.total = 1);
         dataObj.update = utils.dateFormat();
@@ -48,17 +49,25 @@ http.createServer(async (req, res) => {
         }
         dataObj.items ? dataObj.items.unshift(item) : (dataObj.items = [item])
         fs.writeFile(path.join(__dirname, "./data.json"), JSON.stringify(dataObj, null, "\t"), err => {
-          if (!err) return utils.log("addon 1 item")
+          if (!err){
+            utils.log("addon 1 item")
+            res.end(` // 由于异步的读写这一步可能不能执行
+            <script>
+            alert("added")
+            </script>
+            `)
+            return
+          }
           utils.log("write data error")
         })
       })
     }
-    
     // 读取配置文件
     fs.readFile(path.join(__dirname, "./config.json"), (err, data) => {
       if (err) return utils.log("read config error")
       config = data
       config = JSON.parse(config)
+      config.data = dataObj
       // 读取html文档
       fs.readFile(path.join(__dirname, "./resources/index.html"), (err, data) => {
         if (err) return utils.log("read html error")
