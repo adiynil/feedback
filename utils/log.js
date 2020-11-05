@@ -1,8 +1,7 @@
 const fs = require("fs")
 const path = require("path")
-const d = require('./dateFormat')
+const dateFormat = require('./dateFormat')
 
-const dateFormat = d.dateFormat
 
 const log = (msg)=>{
     msg = `${dateFormat()} ${msg}\n`
@@ -10,6 +9,4 @@ const log = (msg)=>{
         if(err) return
     })
 }
-module.exports = {
-    log
-}
+module.exports = log

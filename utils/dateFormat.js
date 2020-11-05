@@ -24,6 +24,4 @@ const dateFormat = () => {
     return fmt;
 };
 
-module.exports = {
-    dateFormat
-}
+module.exports = dateFormat

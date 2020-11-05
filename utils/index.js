@@ -1,7 +1,5 @@
-const d = require('./dateFormat')
-const l = require('./log')
-const dateFormat = d.dateFormat
-const log = l.log
+const dateFormat = require('./dateFormat')
+const log = require('./log')
 
 module.exports = {
   dateFormat,log
