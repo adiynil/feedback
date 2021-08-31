@@ -11,6 +11,7 @@ var config = "";
 var dataObj = "";
 // 搭建服务器
 http.createServer(async (req, res) => {
+  // utils.log(req.query)
   var url = req.url
   var urlObj = urlTool.parse(url)
   url = urlObj.pathname
